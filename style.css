@@ -1,0 +1,667 @@
+/* ================================================================
+   HABIT TRACKER — style.css
+   Mobile-first, WCAG AA contrast, calm teal + amber palette
+   ================================================================ */
+
+/* ── CSS Custom Properties ─────────────────────────────────────── */
+:root {
+  --clr-primary:       #0E9594;   /* soft teal  */
+  --clr-primary-dark:  #0b7a79;
+  --clr-primary-light: #d0f0ef;
+  --clr-accent:        #F5A623;   /* warm amber */
+  --clr-accent-dark:   #d48c0e;
+  --clr-bg:            #f0fafa;
+  --clr-surface:       #ffffff;
+  --clr-surface-2:     #f7fdfd;
+  --clr-border:        #d1ecec;
+  --clr-text:          #1a2e2e;   /* dark teal-black, passes WCAG AA */
+  --clr-text-muted:    #4a6464;
+  --clr-text-light:    #6b8888;
+  --clr-success:       #22c55e;
+  --clr-danger:        #ef4444;
+  --clr-danger-light:  #fee2e2;
+  --clr-warning:       #f59e0b;
+
+  --radius-sm:  8px;
+  --radius-md:  12px;
+  --radius-lg:  20px;
+  --radius-xl:  28px;
+
+  --shadow-sm:  0 1px 3px rgba(14,149,148,.10), 0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:  0 4px 12px rgba(14,149,148,.12), 0 2px 4px rgba(0,0,0,.06);
+  --shadow-lg:  0 8px 24px rgba(14,149,148,.15), 0 4px 8px rgba(0,0,0,.08);
+
+  --font:       -apple-system, "Segoe UI", system-ui, sans-serif;
+  --transition: 180ms ease;
+
+  --max-w: 640px;
+}
+
+/* ── Reset / Base ───────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ensure the HTML `hidden` attribute always wins over any CSS display rule */
+[hidden] { display: none !important; }
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  line-height: 1.6;
+  min-height: 100dvh;
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+}
+
+img { max-width: 100%; display: block; }
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input {
+  font-family: inherit;
+}
+
+/* ── App Header ─────────────────────────────────────────────────── */
+.app-header {
+  background: var(--clr-primary);
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-md);
+}
+
+.header-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.brand-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+
+.header-date {
+  font-size: .8rem;
+  opacity: .88;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ── Container ──────────────────────────────────────────────────── */
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 16px 16px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Section base ───────────────────────────────────────────────── */
+.section {
+  background: var(--clr-surface);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--clr-border);
+}
+
+.section-label {
+  display: block;
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--clr-text-muted);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: 8px;
+}
+
+.section-heading {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--clr-text);
+  margin-bottom: 12px;
+}
+
+/* ── Natural Language Input ─────────────────────────────────────── */
+.nl-section {
+  background: linear-gradient(135deg, #e8f9f9 0%, #fff 60%);
+}
+
+.nl-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.nl-input {
+  flex: 1;
+  padding: 12px 14px;
+  border: 2px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  font-size: .95rem;
+  color: var(--clr-text);
+  background: #fff;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.nl-input:focus {
+  border-color: var(--clr-primary);
+  box-shadow: 0 0 0 3px rgba(14,149,148,.18);
+}
+
+.nl-input::placeholder {
+  color: var(--clr-text-light);
+  font-size: .88rem;
+}
+
+/* ── Buttons ────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  font-size: .9rem;
+  font-weight: 600;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:active { transform: scale(.97); }
+
+.btn-primary {
+  background: var(--clr-primary);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover { background: var(--clr-primary-dark); }
+
+.btn-accent {
+  background: var(--clr-accent);
+  color: #1a2e2e;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-accent:hover { background: var(--clr-accent-dark); color: #fff; }
+
+.btn-outline {
+  background: transparent;
+  color: var(--clr-primary);
+  border: 2px solid var(--clr-primary);
+}
+
+.btn-outline:hover { background: var(--clr-primary-light); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--clr-text-muted);
+}
+
+.btn-ghost:hover { background: #f1f5f5; }
+
+.btn-danger {
+  background: var(--clr-danger-light);
+  color: var(--clr-danger);
+}
+
+.btn-danger:hover { background: var(--clr-danger); color: #fff; }
+
+/* ── Feedback Area ──────────────────────────────────────────────── */
+.feedback-area {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  font-size: .9rem;
+  line-height: 1.5;
+  font-weight: 500;
+  border-left: 4px solid var(--clr-primary);
+  background: var(--clr-primary-light);
+  color: #0b5e5d;
+  animation: fadeSlideIn .25s ease;
+}
+
+.feedback-area.error {
+  border-left-color: var(--clr-danger);
+  background: var(--clr-danger-light);
+  color: #991b1b;
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Summary Card ───────────────────────────────────────────────── */
+.summary-section { padding: 12px 16px; }
+
+.summary-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.summary-stat {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--clr-primary);
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: .7rem;
+  font-weight: 600;
+  color: var(--clr-text-muted);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.summary-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--clr-border);
+  flex-shrink: 0;
+}
+
+/* ── Add Habit Row ──────────────────────────────────────────────── */
+.add-habit-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.add-habit-input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 2px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  font-size: .9rem;
+  color: var(--clr-text);
+  background: #fff;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.add-habit-input:focus {
+  border-color: var(--clr-accent);
+  box-shadow: 0 0 0 3px rgba(245,166,35,.18);
+}
+
+/* ── Habits Section ─────────────────────────────────────────────── */
+.habits-section {
+  padding-top: 14px;
+}
+
+.habit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Habit Card ─────────────────────────────────────────────────── */
+.habit-card {
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  background: var(--clr-surface);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition), transform var(--transition);
+  animation: fadeSlideIn .2s ease;
+}
+
+.habit-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.habit-card.done {
+  border-left: 4px solid var(--clr-primary);
+  background: linear-gradient(135deg, #eafbfa 0%, #fff 70%);
+}
+
+.habit-card.missed {
+  border-left: 4px solid var(--clr-border);
+}
+
+/* Card top row */
+.habit-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.habit-check-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  flex: 1;
+  min-width: 0;
+}
+
+.habit-checkbox {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2.5px solid var(--clr-primary);
+  appearance: none;
+  -webkit-appearance: none;
+  background: #fff;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background var(--transition), border-color var(--transition);
+  position: relative;
+}
+
+.habit-checkbox:checked {
+  background: var(--clr-primary);
+  border-color: var(--clr-primary);
+}
+
+.habit-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 6px;
+  height: 11px;
+  border: 2.5px solid #fff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+
+.habit-checkbox:focus {
+  outline: 3px solid rgba(14,149,148,.35);
+  outline-offset: 2px;
+}
+
+.habit-name {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--clr-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.habit-card.done .habit-name {
+  color: var(--clr-primary-dark);
+  text-decoration: line-through;
+  text-decoration-color: rgba(14,149,148,.4);
+}
+
+/* Card action buttons */
+.habit-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.habit-action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  font-size: .85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--clr-text-muted);
+  transition: background var(--transition), color var(--transition);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.habit-action-btn:hover {
+  background: var(--clr-border);
+  color: var(--clr-text);
+}
+
+.habit-action-btn.delete:hover {
+  background: var(--clr-danger-light);
+  color: var(--clr-danger);
+}
+
+/* Streak badge */
+.habit-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.streak-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: linear-gradient(135deg, #fff3dc 0%, #fde9bb 100%);
+  color: #92540a;
+  border: 1px solid #f5d080;
+  border-radius: 20px;
+  padding: 2px 10px;
+  font-size: .78rem;
+  font-weight: 700;
+}
+
+.streak-badge .streak-fire {
+  font-size: .9rem;
+}
+
+.habit-status-tag {
+  font-size: .75rem;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 20px;
+}
+
+.habit-status-tag.done {
+  background: rgba(14,149,148,.12);
+  color: var(--clr-primary-dark);
+}
+
+.habit-status-tag.pending {
+  background: #f1f5f5;
+  color: var(--clr-text-muted);
+}
+
+/* Weekly chart inside card */
+.habit-chart-wrap {
+  height: 48px;
+  position: relative;
+  margin-top: 4px;
+}
+
+.habit-chart-wrap canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ── Empty State ────────────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 32px 16px;
+  color: var(--clr-text-muted);
+  font-size: .95rem;
+  line-height: 1.8;
+}
+
+/* ── Dialog / Modal ─────────────────────────────────────────────── */
+.dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,40,40,.45);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;     /* bottom sheet on mobile */
+  justify-content: center;
+  padding: 0 0 env(safe-area-inset-bottom, 0);
+}
+
+/* Animation only plays when the overlay is actively opened (.is-open) */
+.dialog-overlay.is-open {
+  animation: overlayIn .18s ease;
+}
+
+.dialog-overlay.is-open .dialog-card {
+  animation: sheetIn .22s ease;
+}
+
+@media (min-width: 480px) {
+  .dialog-overlay {
+    align-items: center;     /* centred modal on larger screens */
+  }
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.dialog-card {
+  background: var(--clr-surface);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  padding: 20px 20px 28px;
+  width: 100%;
+  max-width: var(--max-w);
+  box-shadow: var(--shadow-lg);
+}
+
+@media (min-width: 480px) {
+  .dialog-card {
+    border-radius: var(--radius-lg);
+    max-width: 400px;
+    padding: 24px;
+  }
+}
+
+@keyframes sheetIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.dialog-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--clr-text);
+  margin-bottom: 8px;
+}
+
+.dialog-body {
+  font-size: .88rem;
+  color: var(--clr-text-muted);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.dialog-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.dialog-option-btn {
+  width: 100%;
+  text-align: left;
+  padding: 12px 14px;
+  border: 1.5px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  background: var(--clr-surface-2);
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--clr-text);
+  transition: border-color var(--transition), background var(--transition);
+  cursor: pointer;
+}
+
+.dialog-option-btn:hover {
+  border-color: var(--clr-primary);
+  background: var(--clr-primary-light);
+}
+
+.dialog-new-btn {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.dialog-cancel-btn {
+  width: 100%;
+  padding: 10px;
+}
+
+.dialog-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.dialog-actions .btn {
+  flex: 1;
+}
+
+/* ── Utility: visually hidden (for a11y) ────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+}
+
+/* ── Responsive tweaks ──────────────────────────────────────────── */
+@media (min-width: 520px) {
+  .container { padding: 24px 24px 48px; }
+  .section   { padding: 20px; }
+  .habit-card { padding: 16px; }
+  .stat-value { font-size: 1.6rem; }
+}

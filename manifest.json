@@ -1,0 +1,24 @@
+{
+  "name": "Habit Tracker",
+  "short_name": "Habits",
+  "description": "A calm, motivating habit tracker for busy students and young professionals.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f0fafa",
+  "theme_color": "#0E9594",
+  "icons": [
+    {
+      "src": "icons/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

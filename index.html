@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0E9594" />
+  <meta name="description" content="A calm, motivating habit tracker for busy students and young professionals." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Habits" />
+  <title>Habit Tracker</title>
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Chart.js via CDN (lightweight, no build step needed) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+  <!-- ============================================================
+       HEADER
+  ============================================================ -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true">🌿</span>
+        <span class="brand-name">Habit Tracker</span>
+      </div>
+      <div class="header-date" id="headerDate"></div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN CONTENT
+  ============================================================ -->
+  <main class="container">
+
+    <!-- ── NATURAL LANGUAGE INPUT ─────────────────────────────── -->
+    <section class="section nl-section" aria-labelledby="nlLabel">
+      <label id="nlLabel" class="section-label" for="nlInput">
+        What did you do today?
+      </label>
+      <div class="nl-input-row">
+        <input
+          type="text"
+          id="nlInput"
+          class="nl-input"
+          placeholder='e.g. "udah olahraga 20 menit" or "tambah habit minum air"'
+          autocomplete="off"
+          autocorrect="off"
+          spellcheck="false"
+          aria-label="Natural language habit input"
+        />
+        <button id="nlSubmit" class="btn btn-primary" aria-label="Submit">
+          <span aria-hidden="true">➜</span>
+        </button>
+      </div>
+
+      <!-- Feedback / motivational message area -->
+      <div
+        id="feedbackArea"
+        class="feedback-area"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        hidden
+      ></div>
+    </section>
+
+    <!-- ── CONFIRMATION DIALOG (validation step) ──────────────── -->
+    <div id="confirmDialog" class="dialog-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
+      <div class="dialog-card">
+        <h2 id="dialogTitle" class="dialog-title">Which habit did you mean?</h2>
+        <p id="dialogBody" class="dialog-body"></p>
+        <div id="dialogOptions" class="dialog-options"></div>
+        <button id="dialogCreateNew" class="btn btn-outline dialog-new-btn">＋ Create as new habit</button>
+        <button id="dialogCancel" class="btn btn-ghost dialog-cancel-btn">Cancel</button>
+      </div>
+    </div>
+
+    <!-- ── OVERALL SUMMARY ────────────────────────────────────── -->
+    <section class="section summary-section" aria-labelledby="summaryLabel">
+      <div class="summary-card">
+        <div class="summary-stat">
+          <span class="stat-value" id="overallPct">0%</span>
+          <span class="stat-label">Today's Completion</span>
+        </div>
+        <div class="summary-divider" aria-hidden="true"></div>
+        <div class="summary-stat">
+          <span class="stat-value" id="totalHabits">0</span>
+          <span class="stat-label">Total Habits</span>
+        </div>
+        <div class="summary-divider" aria-hidden="true"></div>
+        <div class="summary-stat">
+          <span class="stat-value" id="longestStreak">0 🔥</span>
+          <span class="stat-label">Longest Streak</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ADD HABIT FORM ─────────────────────────────────────── -->
+    <section class="section" aria-labelledby="addHabitLabel">
+      <div class="add-habit-row">
+        <input
+          type="text"
+          id="addHabitInput"
+          class="add-habit-input"
+          placeholder="New habit name…"
+          aria-label="New habit name"
+          maxlength="60"
+        />
+        <button id="addHabitBtn" class="btn btn-accent" aria-label="Add habit">
+          ＋ Add Habit
+        </button>
+      </div>
+    </section>
+
+    <!-- ── HABIT CARDS ────────────────────────────────────────── -->
+    <section class="section habits-section" aria-labelledby="habitsLabel">
+      <h2 id="habitsLabel" class="section-heading">My Habits</h2>
+      <div id="habitList" class="habit-list" aria-label="Habit list">
+        <!-- Cards rendered by JS -->
+      </div>
+      <p id="emptyState" class="empty-state" hidden>
+        No habits yet! Add your first habit above or type one in the text box. 🌱
+      </p>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       EDIT HABIT MODAL
+  ============================================================ -->
+  <div id="editModal" class="dialog-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="editModalTitle">
+    <div class="dialog-card">
+      <h2 id="editModalTitle" class="dialog-title">Rename Habit</h2>
+      <input
+        type="text"
+        id="editHabitInput"
+        class="nl-input"
+        placeholder="New habit name…"
+        aria-label="Rename habit"
+        maxlength="60"
+      />
+      <div class="dialog-actions">
+        <button id="editSaveBtn" class="btn btn-primary">Save</button>
+        <button id="editCancelBtn" class="btn btn-ghost">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SERVICE WORKER REGISTRATION
+  ============================================================ -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+  </script>
+
+  <!-- Main application script -->
+  <script src="script.js"></script>
+</body>
+</html>
